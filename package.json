@@ -1,0 +1,47 @@
+{
+  "name": "transformer",
+  "version": "1.0.0",
+  "description": "Transformer API - node.js",
+  "main": "index.js",
+  "scripts": {
+    "prettier": "prettier --write ./src/**/*.js",
+    "lint": "eslint . --fix",
+    "lint:write": "eslint --debug .",
+    "pre-build": "npm run prettier && npm run lint",
+    "build": "rimraf dist/ && babel ./ --out-dir dist/ --ignore ./node_modules,coverage",
+    "start": " npm run prettier && npm run lint && npm run build && cross-env NODE_ENV=production node dist/app.js",
+    "start-dev": " npm run prettier && npm run lint && npm run build && cross-env NODE_ENV=dev node dist/app.js",
+    "test-one": "npm run prettier && npm run lint:write && cross-env NODE_ENV=test mocha --require @babel/register src/**/*.test.js --recursive -g <NAME_OF_THE_TEST>",
+    "test-coverage": "cross-env NODE_ENV=test nyc --reporter=html --reporter=text mocha --require @babel/register src/**/*.test.js --recursive",
+    "test": "npm run prettier && npm run lint:write && cross-env NODE_ENV=test mocha --require @babel/register src/**/*.test.js --recursive && npm run test-coverage"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sandeepkesarkar/transformer.git"
+  },
+  "author": "Sandeep Kesarkar",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/sandeepkesarkar/transformer/issues"
+  },
+  "homepage": "https://github.com/sandeepkesarkar/transformer#readme",
+  "devDependencies": {
+    "@babel/cli": "^7.2.3",
+    "@babel/core": "^7.3.4",
+    "@babel/preset-env": "^7.3.4",
+    "@babel/register": "^7.0.0",
+    "chai": "^4.2.0",
+    "cross-env": "^5.2.0",
+    "eslint": "^5.15.1",
+    "mocha": "^6.0.2",
+    "nyc": "^13.3.0",
+    "prettier": "1.16.4",
+    "rimraf": "^2.6.3"
+  },
+  "dependencies": {
+    "config": "^3.0.1",
+    "moment": "^2.24.0",
+    "winston": "^3.2.1",
+    "winston-daily-rotate-file": "^3.8.0"
+  }
+}
