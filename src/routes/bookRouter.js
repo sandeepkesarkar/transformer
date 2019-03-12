@@ -26,7 +26,7 @@ export default class BookRouter {
         });
       });
 
-    this.expressRouter.use('/books/:bookId', (req, res, next) => {
+    this.expressRouter.use('/book/:bookId', (req, res, next) => {
       Book.findById(req.params.bookId, (err, book) => {
         if (err) {
           return res.send(err);
@@ -40,13 +40,13 @@ export default class BookRouter {
     });
 
     this.expressRouter
-      .route('/books/:bookId')
+      .route('/book/:bookId')
       .get((req, res) => {
         console.log(`Value of req.book in get method is ${req.book}`);
         res.json(req.book);
       })
       .put((req, res) => {
-        const {book} = req;
+        const { book } = req;
         book.title = req.body.title;
         book.author = req.body.author;
         book.genre = req.body.genre;
@@ -60,7 +60,7 @@ export default class BookRouter {
         });
       })
       .patch((req, res) => {
-        const {book} = req;
+        const { book } = req;
         if (req.body._id) {
           delete req.body._id;
         }
