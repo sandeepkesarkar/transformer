@@ -1,0 +1,15 @@
+{
+  "restartable": "rs",
+  "ignore": ["node_modules/**/node_modules", "*.test.js"],
+  "verbose": true,
+  "execMap": {
+    "js": "node"
+  },
+  "watch": ["src", "app.js"],
+  "ext": "js",
+  "delay": "10",
+  "env": {
+    "NODE_ENV": "development",
+    "PORT": 4000
+  }
+}

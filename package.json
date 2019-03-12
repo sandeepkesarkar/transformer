@@ -9,7 +9,8 @@
     "lint:write": "eslint --debug .",
     "pre-build": "npm run prettier && npm run lint",
     "build": "rimraf dist/ && babel ./ --out-dir dist/ --ignore ./node_modules,coverage",
-    "start": " npm run prettier && npm run lint && npm run build && cross-env NODE_ENV=production node dist/app.js",
+    "start": "npm run prettier && npm run lint && npm run build && cross-env NODE_ENV=development nodemon --exec babel-node app.js",
+    "serve": "npm run prettier && npm run lint && npm run build && cross-env NODE_ENV=production node dist/app.js",
     "start-dev": " npm run prettier && npm run lint && npm run build && cross-env NODE_ENV=dev node dist/app.js",
     "test-one": "npm run prettier && npm run lint:write && cross-env NODE_ENV=test mocha --require @babel/register src/**/*.test.js --recursive -g <NAME_OF_THE_TEST>",
     "test-coverage": "cross-env NODE_ENV=test nyc --reporter=html --reporter=text mocha --require @babel/register src/**/*.test.js --recursive",
@@ -28,8 +29,11 @@
   "devDependencies": {
     "@babel/cli": "^7.2.3",
     "@babel/core": "^7.3.4",
+    "@babel/node": "^7.2.2",
     "@babel/preset-env": "^7.3.4",
     "@babel/register": "^7.0.0",
+    "babel-cli": "^6.26.0",
+    "babel-preset-env": "^1.7.0",
     "chai": "^4.2.0",
     "cross-env": "^5.2.0",
     "eslint": "^5.15.1",
@@ -39,8 +43,12 @@
     "rimraf": "^2.6.3"
   },
   "dependencies": {
+    "body-parser": "^1.18.3",
     "config": "^3.0.1",
+    "express": "^4.16.4",
     "moment": "^2.24.0",
+    "mongoose": "^5.4.18",
+    "nodemon": "^1.18.10",
     "winston": "^3.2.1",
     "winston-daily-rotate-file": "^3.8.0"
   }
