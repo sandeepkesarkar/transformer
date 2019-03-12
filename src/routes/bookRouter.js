@@ -46,7 +46,7 @@ export default class BookRouter {
         res.json(req.book);
       })
       .put((req, res) => {
-        const { book } = req;
+        const {book} = req;
         book.title = req.body.title;
         book.author = req.body.author;
         book.genre = req.body.genre;
@@ -60,7 +60,7 @@ export default class BookRouter {
         });
       })
       .patch((req, res) => {
-        const { book } = req;
+        const {book} = req;
         if (req.body._id) {
           delete req.body._id;
         }

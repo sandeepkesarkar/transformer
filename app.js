@@ -9,7 +9,7 @@ import BookRouter from './src/routes/bookRouter';
  */
 console.log(AppMain.greetings()); // eslint-disable-line no-console
 const app = express();
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 
 const db = mongoose.connect('mongodb://localhost/bookAPI');
