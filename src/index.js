@@ -1,1 +1,1 @@
-export const bookRoutes = require('./books/routes/bookRouter');
+export const bookRoutes = require('./books/routes/bookRouter')
