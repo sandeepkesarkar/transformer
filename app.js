@@ -5,6 +5,7 @@ const mongoose = require('mongoose');
 const express = require('express');
 
 mongoose.connect('mongodb://localhost/bookAPI', { useNewUrlParser: true });
+mongoose.Promise = require('bluebird');
 
 const app = express();
 app.use(bodyParser.urlencoded({ extended: true }));

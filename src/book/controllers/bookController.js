@@ -1,13 +1,13 @@
 import BookModel from '../models/bookModel';
 
-var booksController = function () {
-  function post (req, res) {
+var booksController = function() {
+  function post(req, res) {
     const book = new BookModel(req.body);
     book.save();
     return res.status(200).json(book);
   }
 
-  function get (req, res) {
+  function get(req, res) {
     const query = {};
     if (req.query.genre) {
       query.genre = req.query.genre;

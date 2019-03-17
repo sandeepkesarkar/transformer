@@ -1,9 +1,9 @@
 import bookModel from '../models/bookModel';
-import booksController from '../controllers/booksController';
+import booksController from '../controllers/bookController';
 
 const express = require('express');
 
-var bookRoutes = function () {
+var bookRoutes = function() {
   const bookRouter = express.Router();
   const controller = booksController();
 

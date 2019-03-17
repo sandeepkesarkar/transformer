@@ -9,9 +9,8 @@
     "lint:write": "eslint --debug .",
     "pre-build": "npm run prettier && npm run lint",
     "build": "rimraf dist/ && babel ./ --out-dir dist/ --ignore ./node_modules,coverage",
-    "start": "npm run prettier && npm run lint && npm run build && cross-env NODE_ENV=development nodemon --exec babel-node app.js",
+    "start": "npm run prettier && npm run lint && cross-env NODE_ENV=development nodemon --exec babel-node app.js",
     "serve": "npm run prettier && npm run lint && npm run build && cross-env NODE_ENV=production node dist/app.js",
-    "start-dev": " npm run prettier && npm run lint && npm run build && cross-env NODE_ENV=dev node dist/app.js",
     "test-one": "npm run prettier && npm run lint:write && cross-env NODE_ENV=test mocha --require @babel/register src/**/*.test.js --recursive -g <NAME_OF_THE_TEST>",
     "test-coverage": "cross-env NODE_ENV=test nyc --reporter=html --reporter=text mocha --require @babel/register src/**/*.test.js --recursive",
     "test": "npm run prettier && npm run lint:write && cross-env NODE_ENV=test mocha --require @babel/register src/**/*.test.js --recursive && npm run test-coverage"
@@ -37,6 +36,7 @@
     "chai": "^4.2.0",
     "cross-env": "^5.2.0",
     "eslint": "^5.15.2",
+    "eslint-config-prettier": "^4.1.0",
     "eslint-config-standard": "^12.0.0",
     "eslint-plugin-import": "^2.16.0",
     "eslint-plugin-node": "^8.0.1",
@@ -48,6 +48,7 @@
     "rimraf": "^2.6.3"
   },
   "dependencies": {
+    "bluebird": "^3.5.3",
     "body-parser": "^1.18.3",
     "config": "^3.0.1",
     "express": "^4.16.4",
