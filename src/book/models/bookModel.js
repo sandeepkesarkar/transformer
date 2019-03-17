@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
 const BookModel = new mongoose.Schema({
   title: { type: String },
@@ -7,4 +7,4 @@ const BookModel = new mongoose.Schema({
   read: { type: Boolean, default: false }
 });
 
-module.exports = mongoose.model('book', BookModel);
+module.exports = mongoose.model("book", BookModel);

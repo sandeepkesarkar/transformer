@@ -1,18 +1,18 @@
-import bookModel from '../models/bookModel';
-import booksController from '../controllers/bookController';
+import bookModel from "../models/bookModel";
+import bookController from "../controllers/bookController";
 
-const express = require('express');
+const express = require("express");
 
 var bookRoutes = function() {
   const bookRouter = express.Router();
-  const controller = booksController();
+  const controller = bookController();
 
   bookRouter
-    .route('/books')
+    .route("/books")
     .post(controller.post)
     .get(controller.get);
 
-  bookRouter.use('/book/:bookId', (req, res, next) => {
+  bookRouter.use("/book/:bookId", (req, res, next) => {
     bookModel.findById(req.params.bookId, (err, book) => {
       if (err) {
         return res.send(err);
@@ -26,9 +26,8 @@ var bookRoutes = function() {
   });
 
   bookRouter
-    .route('/book/:bookId')
+    .route("/book/:bookId")
     .get((req, res) => {
-      console.log(`Value of req.book in get method is ${req.book}`);
       res.json(req.book);
     })
     .put((req, res) => {

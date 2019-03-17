@@ -1,23 +1,28 @@
-import BookModel from '../models/bookModel';
+import bookDao from "../dao/bookDao";
 
-var booksController = function() {
+var bookController = function() {
+  // Initialize the DAO object to be used by API keyword functions
+  const bookDaoObj = bookDao();
+
+  /**
+   * Post method handler
+   */
   function post(req, res) {
-    const book = new BookModel(req.body);
-    book.save();
-    return res.status(200).json(book);
+    bookDaoObj.saveBook(req.body).then(book => {
+      return res.status(200).json(book);
+    });
   }
 
   function get(req, res) {
-    const query = {};
-    if (req.query.genre) {
-      query.genre = req.query.genre;
-    }
-    BookModel.find(query, (err, books) => {
-      if (err) {
-        return res.send(err);
-      }
-      return res.json(books);
-    });
+    bookDaoObj
+      .getBooks(req)
+      .then(books => {
+        return res.json(books);
+      })
+      .catch(err => {
+        console.log(err);
+        return res.send("Books not found");
+      });
   }
 
   return {
@@ -26,4 +31,4 @@ var booksController = function() {
   };
 };
 
-module.exports = booksController;
+module.exports = bookController;
