@@ -10,10 +10,11 @@ var bookController = function() {
       res.status(400);
       return res.send("Title is required");
     }
-    const books = bookDao
+    bookDao
       .saveNewBook(req.body)
-      .then(books => {
-        return books;
+      .then(book => {
+        res.status(201);
+        return res.json(book);
       })
       .catch(err => {
         logger.error(
@@ -21,8 +22,6 @@ var bookController = function() {
         );
         return {};
       });
-    res.status(201);
-    return res.json(books);
   }
 
   function get(req, res) {
