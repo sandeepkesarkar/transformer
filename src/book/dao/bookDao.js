@@ -1,19 +1,21 @@
 import BookModel from "../models/bookModel";
 
+import { logger } from "../../helpers/logHelper";
 /**
  * Book DAO function to handle DB related operations
  */
-var bookDao = function() {
+var bookDao = (function() {
   /**
    * Save a new book to DB
    */
   function saveNewBook(bookRequest) {
+    logger.debug("Inside saveNewBook.........");
     const book = new BookModel(bookRequest);
     return book.save();
   }
 
   function getBooks(bookRequest) {
-    if (bookRequest.query.genre) {
+    if (bookRequest.query.hasOwnProperty("genre") && bookRequest.query.genre) {
       return getBooksByGenre(bookRequest.query.genre);
     } else {
       return getAllBooks();
@@ -34,6 +36,6 @@ var bookDao = function() {
     saveNewBook,
     getBooks
   };
-};
+})();
 
 module.exports = bookDao;

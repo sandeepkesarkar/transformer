@@ -1,0 +1,8 @@
+{
+  "appName": "transformer",
+  "logging": {
+    "errorFile": "./logs/transformer-ERROR_%DATE%.log",
+    "infoFile": "./logs/transformer-INFO_%DATE%.log",
+    "debugFile": "./logs/transformer-DEBUG_%DATE%.log"
+  }
+}

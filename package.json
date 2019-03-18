@@ -7,13 +7,15 @@
     "prettier": "prettier --write ./src/**/*.js",
     "lint": "eslint . --fix",
     "lint:write": "eslint --debug .",
+    "prettier-lint": "npm run prettier && npm run lint",
+    "prettier-lint-dev": "npm run prettier-lint && cross-env NODE_ENV=development",
     "pre-build": "npm run prettier && npm run lint",
     "build": "rimraf dist/ && babel ./ --out-dir dist/ --ignore ./node_modules,coverage",
     "start": "npm run prettier && npm run lint && cross-env NODE_ENV=development nodemon --exec babel-node app.js",
     "serve": "npm run prettier && npm run lint && npm run build && cross-env NODE_ENV=production node dist/app.js",
-    "test-one": "npm run prettier && npm run lint:write && cross-env NODE_ENV=test mocha --require @babel/register src/**/*.test.js --recursive -g <NAME_OF_THE_TEST>",
-    "test-coverage": "cross-env NODE_ENV=test nyc --reporter=html --reporter=text mocha --require @babel/register src/**/*.test.js --recursive",
-    "test": "npm run prettier && npm run lint:write && cross-env NODE_ENV=test mocha --require @babel/register src/**/*.test.js --recursive && npm run test-coverage"
+    "test-one": "npm run prettier && npm run lint && cross-env NODE_ENV=test mocha --require @babel/polyfill --require @babel/register src/**/*.test.js --recursive -g <NAME_OF_THE_TEST>",
+    "test-coverage": "npm run prettier && npm run lint:write && cross-env NODE_ENV=test mocha --require @babel/polyfill --require @babel/register src/**/*.test.js --recursive && npm run test-coverage",
+    "test": "npm run prettier-lint-dev && mocha --require @babel/polyfill --require @babel/register src/**/*.test.js --recursive"
   },
   "repository": {
     "type": "git",
@@ -28,11 +30,12 @@
   "devDependencies": {
     "@babel/cli": "^7.2.3",
     "@babel/core": "^7.3.4",
+    "@babel/generator": "^7.3.4",
     "@babel/node": "^7.2.2",
+    "@babel/plugin-transform-async-to-generator": "^7.3.4",
+    "@babel/polyfill": "^7.2.5",
     "@babel/preset-env": "^7.3.4",
     "@babel/register": "^7.0.0",
-    "babel-cli": "^6.26.0",
-    "babel-preset-env": "^1.7.0",
     "chai": "^4.2.0",
     "cross-env": "^5.2.0",
     "eslint": "^5.15.2",
@@ -45,7 +48,8 @@
     "mocha": "^6.0.2",
     "nyc": "^13.3.0",
     "prettier": "1.16.4",
-    "rimraf": "^2.6.3"
+    "rimraf": "^2.6.3",
+    "sinon": "^7.2.7"
   },
   "dependencies": {
     "bluebird": "^3.5.3",

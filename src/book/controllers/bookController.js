@@ -1,26 +1,53 @@
-import bookDao from "../dao/bookDao";
+import { logger } from "../../helpers/logHelper";
+const bookDao = require("../dao/bookDao");
 
 var bookController = function() {
-  // Initialize the DAO object to be used by API keyword functions
-  const bookDaoObj = bookDao();
-
   /**
    * Post method handler
    */
   function post(req, res) {
-    bookDaoObj.saveBook(req.body).then(book => {
-      return res.status(200).json(book);
-    });
+    logger.debug("Inside controller post...");
+    const books = bookDao
+      .saveNewBook(req.body)
+      .then(books => {
+        return books;
+      })
+      .catch(err => {
+        logger.error(
+          `Error occured while calling function bookDao.saveNewBook: ${err}`
+        );
+        return {};
+      });
+    logger.debug(
+      `Inside controller post -- Printing req.... ${JSON.stringify(req)}`
+    );
+    logger.debug(
+      `Inside controller post -- Printing res.... ${JSON.stringify(res)}`
+    );
+    logger.debug(
+      `Inside controller post -- Printing books.... ${JSON.stringify(books)}`
+    );
+    logger.debug("Before calling testFun()");
+    res.test();
+    logger.debug("After calling testFun()");
+    logger.debug("Before calling status(200)");
+    res.status(200);
+    logger.debug("After calling status(200)");
+
+    return res.json(books);
   }
 
   function get(req, res) {
-    bookDaoObj
+    logger.debug("INSIDE get from controller");
+
+    bookDao
       .getBooks(req)
       .then(books => {
+        logger.debug(books);
         return res.json(books);
       })
       .catch(err => {
-        console.log(err);
+        logger.error(err);
         return res.send("Books not found");
       });
   }
